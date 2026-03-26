@@ -36,14 +36,13 @@ async def predict(file: UploadFile = File(...)):
         # Convert to array and preprocess
         img_array = image.img_to_array(img)
         img_array = np.expand_dims(img_array, axis=0)
-        img_array = img_array / 255.0   # Normalize
+        img_array = img_array / 255.0   
 
         # Make prediction
         predictions = model.predict(img_array)
         predicted_class = int(np.argmax(predictions[0]))
         confidence = float(np.max(predictions[0]) * 100)
 
-        # Map class index to meaningful name (CHANGE THESE 3 NAMES to your actual classes)
         class_names = ["Class 0: Healthy", "Class 1: Mild Condition", "Class 2: Severe Condition"]
         result = class_names[predicted_class]
 
